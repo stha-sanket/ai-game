@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phaser Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #2a2a2a;
+        }
+        #game-container {
+            width: 800px;
+            height: 600px;
+            border: 2px solid #444;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container"></div>
+
+    <script>
+        const config = {
+            type: Phaser.AUTO,
+            width: 800,
+            height: 600,
+            parent: 'game-container',
+            scene: {
+                create: create
+            }
+        };
+
+        function create () {
+            this.cameras.main.setBackgroundColor('#000000'); // Black background
+            this.add.rectangle(400, 300, 200, 200, 0xFF0000); // Red square in center
+        }
+
+        const game = new Phaser.Game(config);
+    </script>
+</body>
+</html>

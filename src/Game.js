@@ -1,3 +1,4 @@
+
 const Game = () => {
     const gameRef = React.useRef(null);
 
@@ -8,7 +9,7 @@ const Game = () => {
             type: Phaser.AUTO,
             width: 800,
             height: 600,
-            parent: 'root',
+            parent: 'game-container',
             physics: {
                 default: 'arcade',
                 arcade: {
@@ -27,26 +28,24 @@ const Game = () => {
         let cursors;
 
         function preload () {
-            // You can load assets here later
+            // No assets to preload yet, but this function is required.
         }
 
         function create () {
-            // Set background color
+            // Set background color (dark grey)
             this.cameras.main.setBackgroundColor('#2a2a2a');
 
-            // Create a simple ground/path
-            this.add.rectangle(400, 550, 800, 100, 0x333333).setOrigin(0.5);
+            // Create a central ground/path (bright yellow, larger)
+            this.add.rectangle(400, 300, 400, 200, 0xFFFF00).setOrigin(0.5);
 
-            // Create some placeholder buildings
-            this.add.rectangle(150, 400, 100, 200, 0x666666).setOrigin(0.5);
-            this.add.rectangle(650, 450, 120, 150, 0x666666).setOrigin(0.5);
+            // Create some placeholder buildings (bright red, larger and central)
+            this.add.rectangle(200, 200, 150, 250, 0xFF0000).setOrigin(0.5);
+            this.add.rectangle(600, 400, 180, 300, 0xFF0000).setOrigin(0.5);
 
-            // Player (Detective) - represented by a blue square for now
-            player = this.physics.add.image(100, 500, 'player'); // 'player' is a placeholder key
-            player.setOrigin(0.5);
-            player.setCollideWorldBounds(true);
-            player.setDisplaySize(40, 60); // Set size for the detective
-            player.setTint(0x00aaff); // Blue color for detective
+            // Player (Detective) - represented by a bright green rectangle (larger and central)
+            player = this.add.rectangle(400, 300, 80, 120, 0x00FF00); // x, y, width, height, color
+            this.physics.add.existing(player); // Add physics to the rectangle
+            player.body.setCollideWorldBounds(true);
 
             // Input for WASD movement
             cursors = this.input.keyboard.addKeys({
@@ -58,18 +57,18 @@ const Game = () => {
         }
 
         function update () {
-            player.setVelocity(0);
+            player.body.setVelocity(0);
 
             if (cursors.left.isDown) {
-                player.setVelocityX(-160);
+                player.body.setVelocityX(-160);
             } else if (cursors.right.isDown) {
-                player.setVelocityX(160);
+                player.body.setVelocityX(160);
             }
 
             if (cursors.up.isDown) {
-                player.setVelocityY(-160);
+                player.body.setVelocityY(-160);
             } else if (cursors.down.isDown) {
-                player.setVelocityY(160);
+                player.body.setVelocityY(160);
             }
         }
 
